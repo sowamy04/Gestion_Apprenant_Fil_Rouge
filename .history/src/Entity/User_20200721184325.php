@@ -43,7 +43,6 @@ class User implements UserInterface
 
     /**
      * @ORM\ManyToOne(targetEntity=Profil::class, inversedBy="users")
-     * @Groups("post:read")
      */
     private $profil;
 

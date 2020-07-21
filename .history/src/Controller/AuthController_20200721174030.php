@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Repository\ProfilRepository;
-use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -43,6 +42,6 @@ class AuthController extends AbstractController
    */
   public function index(ProfilRepository $postRepository)
   {
-    return $this->json($postRepository->findAll(), 200, [], ['groups' => 'post:read']);
+    return $this->json($postRepository->findAll(), 200, [], ['groups' => 'customers_read']);
   }
 }

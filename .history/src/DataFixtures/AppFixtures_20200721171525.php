@@ -2,7 +2,6 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Profil;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -26,40 +25,19 @@ class AppFixtures extends Fixture
                 $this->encoder->encodePassword($user, 'moussa1234')
             );
         $manager->persist($user);
-        $user = new User();
         $user->setEmail('amy@gmail.com')
             ->setRoles(['ROLE_ADMIN'])
             ->setPassword(
                 $this->encoder->encodePassword($user, 'amy1234')
             );
         $manager->persist($user);
-        $user = new User();
         $user->setEmail('thierno@gmail.com')
             ->setRoles(['ROLE_CM'])
             ->setPassword(
                 $this->encoder->encodePassword($user, 'thierno1234')
             );
         $manager->persist($user);
-        $user = new User();
-        $user->setEmail('assane@gmail.com')
-            ->setRoles(['ROLE_APPRENANT'])
-            ->setPassword(
-                $this->encoder->encodePassword($user, 'assane1234')
-            );
-        $manager->persist($user);
 
-        $profil = new Profil();
-        $profil->setLibelle('ROLE_APPRENANT');
-        $manager->persist($profil);
-        $profil = new Profil();
-        $profil->setLibelle('ROLE_CM');
-        $manager->persist($profil);
-        $profil = new Profil();
-        $profil->setLibelle('ROLE_ADMIN');
-        $manager->persist($profil);
-        $profil = new Profil();
-        $profil->setLibelle('ROLE_ENCADREUR');
-        $manager->persist($profil);
         $manager->flush();
     }
 }

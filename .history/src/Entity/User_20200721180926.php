@@ -5,7 +5,6 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
-use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -40,12 +39,6 @@ class User implements UserInterface
      * @Groups("post:read")
      */
     private $password;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Profil::class, inversedBy="users")
-     * @Groups("post:read")
-     */
-    private $profil;
 
     public function getId(): ?int
     {

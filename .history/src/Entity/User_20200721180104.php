@@ -5,7 +5,6 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
-use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -18,34 +17,24 @@ class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups("post:read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Groups("post:read")
      */
     private $email;
 
     /**
      * @ORM\Column(type="json")
-     * @Groups("post:read")
      */
     private $roles = [];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
-     * @Groups("post:read")
      */
     private $password;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Profil::class, inversedBy="users")
-     * @Groups("post:read")
-     */
-    private $profil;
 
     public function getId(): ?int
     {

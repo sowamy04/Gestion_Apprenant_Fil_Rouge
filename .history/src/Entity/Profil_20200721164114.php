@@ -2,16 +2,13 @@
 
 namespace App\Entity;
 
-use App\Entity\User;
-use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\Collection;
-use ApiPlatform\Core\Annotation\ApiResource;
+use App\Repository\ProfilRepository;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=ProfilRepository::class)
- *@ApiResource()
  */
 class Profil
 {
@@ -19,19 +16,16 @@ class Profil
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     *@Groups("post:read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     *@Groups("post:read")
      */
     private $libelle;
 
     /**
      * @ORM\OneToMany(targetEntity=User::class, mappedBy="profil")
-     *
      */
     private $users;
 
@@ -86,5 +80,9 @@ class Profil
         }
 
         return $this;
+    }
+    public function __toString()
+    {
+        return (string) $this->getLibelle();
     }
 }

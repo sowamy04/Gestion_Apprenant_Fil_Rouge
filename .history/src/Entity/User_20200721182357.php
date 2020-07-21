@@ -41,12 +41,6 @@ class User implements UserInterface
      */
     private $password;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Profil::class, inversedBy="users")
-     * @Groups("post:read")
-     */
-    private $profil;
-
     public function getId(): ?int
     {
         return $this->id;

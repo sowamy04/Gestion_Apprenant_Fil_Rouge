@@ -2,7 +2,6 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Profil;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -48,18 +47,6 @@ class AppFixtures extends Fixture
             );
         $manager->persist($user);
 
-        $profil = new Profil();
-        $profil->setLibelle('ROLE_APPRENANT');
-        $manager->persist($profil);
-        $profil = new Profil();
-        $profil->setLibelle('ROLE_CM');
-        $manager->persist($profil);
-        $profil = new Profil();
-        $profil->setLibelle('ROLE_ADMIN');
-        $manager->persist($profil);
-        $profil = new Profil();
-        $profil->setLibelle('ROLE_ENCADREUR');
-        $manager->persist($profil);
         $manager->flush();
     }
 }

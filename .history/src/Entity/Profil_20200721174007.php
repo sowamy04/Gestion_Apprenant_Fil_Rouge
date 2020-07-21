@@ -2,8 +2,8 @@
 
 namespace App\Entity;
 
-use App\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ProfilRepository;
 use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -11,7 +11,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=ProfilRepository::class)
- *@ApiResource()
+ * @ApiResource(
+ * normalizationContext={
+ *      "groups"={"customers_read"}
+ *  }
+ * )
  */
 class Profil
 {
@@ -19,19 +23,18 @@ class Profil
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     *@Groups("post:read")
+     * @Groups({"customers_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     *@Groups("post:read")
+     * @Groups({"customers_read"})
      */
     private $libelle;
 
     /**
      * @ORM\OneToMany(targetEntity=User::class, mappedBy="profil")
-     *
      */
     private $users;
 

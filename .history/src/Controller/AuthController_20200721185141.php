@@ -39,7 +39,7 @@ class AuthController extends AbstractController
   }
 
   /**
-   * @Route("/api/profils", name="api_post_index", methods={"GET"})
+   * @Route("/api/users", name="api_post_index", methods={"GET"})
    */
   public function index(ProfilRepository $postRepository)
   {

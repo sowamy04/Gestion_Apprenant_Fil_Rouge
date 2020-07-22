@@ -34,13 +34,12 @@ class AppFixtures extends Fixture
 
 
         $user = new User();
-        $user->setProfil($profil1->getId())
-            ->setEmail('moussa@gmail.com')
-
+        $user->setEmail('moussa@gmail.com')
             ->setRoles([$profil1->getLibelle()])
             ->setPassword(
                 $this->encoder->encodePassword($user, 'moussa1234')
-            );
+            )
+            ->setProfil();
         $manager->persist($user);
         $user = new User();
         $user->setEmail('amy@gmail.com')

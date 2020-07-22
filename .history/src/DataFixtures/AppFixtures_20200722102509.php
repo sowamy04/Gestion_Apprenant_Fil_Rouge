@@ -6,7 +6,6 @@ use App\Entity\User;
 use App\Entity\Profil;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AppFixtures extends Fixture
 {
@@ -34,9 +33,7 @@ class AppFixtures extends Fixture
 
 
         $user = new User();
-        $user->setProfil($profil1->getId())
-            ->setEmail('moussa@gmail.com')
-
+        $user->setEmail('moussa@gmail.com')
             ->setRoles([$profil1->getLibelle()])
             ->setPassword(
                 $this->encoder->encodePassword($user, 'moussa1234')

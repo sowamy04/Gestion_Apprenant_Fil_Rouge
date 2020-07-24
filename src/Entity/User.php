@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Profil;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -10,7 +11,89 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * @ApiResource()
+ *  @ApiResource(
+* collectionOperations={
+* "get_apprenants"={
+* "method"="GET",
+* "path"="/apprenants" ,
+* "normalization_context"={"groups":"apprenant:read"},
+* "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM'))",
+* "access_control_message"="Vous n'avez pas access à cette Ressource",
+* "route_name"="apprenant_liste",
+*
+* },
+*"get_apprenants_id"={
+* "method"="{GET}",
+* "path"="/apprenants/{id}" ,
+* "normalization_context"={"groups":"apprenant:read"},
+* "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM'))",
+* "access_control_message"="Vous n'avez pas access à cette Ressource",
+* "route_name"="apprenant_recup",
+*
+* },
+ *"get_apprenants_id"={
+ * "method"="DELETE",
+ * "path"="/apprenants/{id}" ,
+ * "normalization_context"={"groups":"apprenant:read"},
+ * "access_control"="(is_granted('ROLE_ADMIN'))",
+ * "access_control_message"="Vous n'avez pas access à cette Ressource",
+ * "route_name"="apprenant_delete",
+ * },
+ * "get_formateurs"={
+ * "method"="GET",
+ * "path"="/formateurs" ,
+ * "normalization_context"={"groups":"formateur:read"},
+ * "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_CM'))",
+ * "access_control_message"="Vous n'avez pas access à cette Ressource",
+ * "route_name"="formateur_liste",
+ * },
+ * "get_formateurs_id"={
+ * "method"="GET",
+ * "path"="/formateurs/{id}" ,
+ * "normalization_context"={"groups":"formateur:read"},
+ * "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_CM'))",
+ * "access_control_message"="Vous n'avez pas access à cette Ressource",
+ * "route_name"="formateur_id",
+ * },
+ * "get_admins"={
+ * "method"="GET",
+ * "path"="/admins" ,
+ * "normalization_context"={"groups":"admin:read"},
+ * "access_control"="(is_granted('ROLE_ADMIN'))",
+ * "access_control_message"="Vous n'avez pas access à cette Ressource",
+ * "route_name"="admin_liste",
+ * },
+ * "get_users"={
+ * "method"="{GET|POST}",
+ * "path"="/admins/users" ,
+ * "normalization_context"={"groups":"admin:read"},
+ * "access_control"="(is_granted('ROLE_ADMIN'))",
+ * "access_control_message"="Vous n'avez pas access à cette Ressource",
+ * "route_name"="user_liste",
+ * },
+ * "get_admins_id"={
+ * "method"="GET",
+ * "path"="/admins/{id}" ,
+ * "normalization_context"={"groups":"admin:read"},
+ * "access_control"="(is_granted('ROLE_ADMIN'))",
+ * "access_control_message"="Vous n'avez pas access à cette Ressource",
+ * "route_name"="admin_id",
+ *
+ * }
+
+* },
+ * itemOperations={
+ *"get_apprenants_id"={
+ * "method"="{PUT}",
+ * "path"="/apprenants/{id}" ,
+ * "normalization_context"={"groups":"apprenant:read"},
+ * "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM'))",
+ * "access_control_message"="Vous n'avez pas access à cette Ressource",
+ * "route_name"="apprenant_update",
+ *
+ * },
+
+ * })
  */
 class User implements UserInterface
 {
@@ -27,9 +110,7 @@ class User implements UserInterface
      */
     private $email;
 
-    /**
-     * @ORM\Column(type="json")
-     */
+
     private $roles = [];
 
     /**
@@ -43,6 +124,21 @@ class User implements UserInterface
      * @ORM\JoinColumn(nullable=true)
      */
     private $profil;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $prenom;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $nom;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $adresse;
 
     public function getId(): ?int
     {
@@ -78,7 +174,7 @@ class User implements UserInterface
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        $roles[] = 'ROLE_'.$this->profil->getLibelle();
 
         return array_unique($roles);
     }
@@ -130,6 +226,42 @@ class User implements UserInterface
     public function setProfil(?Profil $profil): self
     {
         $this->profil = $profil;
+
+        return $this;
+    }
+
+    public function getPrenom(): ?string
+    {
+        return $this->prenom;
+    }
+
+    public function setPrenom(string $prenom): self
+    {
+        $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): self
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getAdresse(): ?string
+    {
+        return $this->adresse;
+    }
+
+    public function setAdresse(string $adresse): self
+    {
+        $this->adresse = $adresse;
 
         return $this;
     }

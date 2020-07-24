@@ -10,7 +10,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class FormateurController extends AbstractController
 {
     /**
-     * @Route("/apprenant", name="apprenant")
      *  @Route(
      * name="formateur_liste",
      * path="api/formateurs",
@@ -25,6 +24,7 @@ class FormateurController extends AbstractController
     public function showFormateur(UserRepository $repo)
     {
         $formateur = $repo->findByProfil("FORMATEUR");
+        dd($formateur);
         return $this->json($formateur, Response::HTTP_OK);
     }
 

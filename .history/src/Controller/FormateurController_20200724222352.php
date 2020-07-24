@@ -10,7 +10,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class FormateurController extends AbstractController
 {
     /**
-     * @Route("/apprenant", name="apprenant")
      *  @Route(
      * name="formateur_liste",
      * path="api/formateurs",

@@ -16,13 +16,13 @@ class ApprenantController extends AbstractController
 
   /**
    *  @Route(
-   * name="apprenant_liste",
+   * name="apprenant",
    * path="api/apprenants",
    * methods={"GET"},
    * defaults={
    * "_controller"="\app\ControllerApprenantController::showApprenant",
    * "_api_resource_class"=User::class,
-   * "_api_collection_operation_name"="get_apprenantst"
+   * "_api_collection_operation_name"="get_apprenants"
    * }
    * )
    */

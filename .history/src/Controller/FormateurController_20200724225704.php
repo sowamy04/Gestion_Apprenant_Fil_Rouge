@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -10,7 +11,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class FormateurController extends AbstractController
 {
     /**
-     * @Route("/apprenant", name="apprenant")
      *  @Route(
      * name="formateur_liste",
      * path="api/formateurs",
@@ -25,6 +25,7 @@ class FormateurController extends AbstractController
     public function showFormateur(UserRepository $repo)
     {
         $formateur = $repo->findByProfil("FORMATEUR");
+        dd($formateur);
         return $this->json($formateur, Response::HTTP_OK);
     }
 
@@ -33,7 +34,7 @@ class FormateurController extends AbstractController
      * @Route("/apprenant", name="formateur_id")
      *  @Route(
      * name="formateur_liste",
-     * path="api/formateurs",
+     * path="api/formateurListe",
      * methods={"GET"},
      * defaults={
      * "_controller"="\app\ControllerApprenantController::showFormateur",

@@ -13,11 +13,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Entity(repositoryClass=UserRepository::class)
  *  @ApiResource(
  * collectionOperations={
- * "get_apprenantst"={
+ * "get_apprenants"={
  * "method"="GET",
  * "path"="/apprenants" ,
  * "normalization_context"={"groups":"apprenant:read"},
- * "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR'))",
+ * "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM'))",
  * "access_control_message"="Vous n'avez pas access à cette Ressource",
  * "route_name"="apprenant_liste"
  *
@@ -38,6 +38,22 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * "access_control"="(is_granted('ROLE_ADMIN'))",
  * "access_control_message"="Vous n'avez pas access à cette Ressource",
  * "route_name"="apprenant_delete",
+ * },
+ * "get_formateurs"={
+ * "method"="GET",
+ * "path"="/formateurs" ,
+ * "normalization_context"={"groups":"formateur:read"},
+ * "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_CM'))",
+ * "access_control_message"="Vous n'avez pas access à cette Ressource",
+ * "route_name"="formateur_liste",
+ * },
+ * "get_formateurs_id"={
+ * "method"="GET",
+ * "path"="/formateurs/{id}" ,
+ * "normalization_context"={"groups":"formateur:read"},
+ * "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_CM'))",
+ * "access_control_message"="Vous n'avez pas access à cette Ressource",
+ * "route_name"="formateur_id",
  * },
  * "get_admins"={
  * "method"="GET",
